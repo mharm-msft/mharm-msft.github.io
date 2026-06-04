@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#000000" />
+<meta name="description" content="Michael Harmon // Cloud Solution Architect @ Microsoft // zero-trust // generative AI // I fight for the Users." />
+<meta name="author" content="Michael Harmon (@mharm-msft)" />
+<meta property="og:title" content="MHARM/MSFT // ON THE GRID" />
+<meta property="og:description" content="Cloud Solution Architect @ Microsoft. Zero-trust Azure landing zones. Generative AI workload integration. Agentic developer tooling. I fight for the Users." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://mharm-msft.github.io" />
+<title>MHARM/MSFT // ON THE GRID</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ───────────────────────── TRON PALETTE ───────────────────────── */
+  :root {
+    --bg:        #000000;
+    --bg-soft:   #04111a;
+    --cyan:      #00E5FF;
+    --cyan-dim:  #007a8a;
+    --cyan-deep: #003D4D;
+    --ice:       #7DF9FF;
+    --orange:    #FF6B00;
+    --orange-dim:#7a3300;
+    --white:     #FFFFFF;
+    --grey:      #6e6e6e;
+    --grey-mid:  #8a8a8a;
+    --grid-line: #00E5FF22;
+    --grid-hot:  #00E5FF66;
+  }
+
+  *,*::before,*::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ice); font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  body { min-height: 100vh; line-height: 1.55; }
+  a { color: var(--cyan); text-decoration: none; border-bottom: 1px dashed transparent; transition: border-color .15s, color .15s, text-shadow .15s; }
+  a:hover { color: var(--ice); border-color: var(--cyan); text-shadow: 0 0 8px var(--cyan); }
+  ::selection { background: var(--cyan); color: var(--bg); }
+
+  /* ───────────────────────── TRON GRID FLOOR ────────────────────── */
+  .grid-floor {
+    position: fixed; inset: 50% 0 0 0; pointer-events: none; z-index: 0;
+    perspective: 460px; perspective-origin: 50% 0;
+    overflow: hidden;
+  }
+  .grid-floor::before {
+    content: ""; position: absolute; inset: 0 -50% -50% -50%;
+    background:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px) 0 0 / 56px 100%,
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px) 0 0 / 100% 56px;
+    transform: rotateX(60deg);
+    transform-origin: 50% 0;
+    animation: gridScroll 4.5s linear infinite;
+    background-position: 0 0, 0 0;
+  }
+  .grid-floor::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(to bottom, var(--bg) 0%, transparent 18%, transparent 72%, var(--bg) 100%);
+  }
+  @keyframes gridScroll {
+    from { background-position: 0 0, 0 0; }
+    to   { background-position: 0 0, 0 56px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .grid-floor::before { animation: none; }
+    .pulse, .blink, .light-cycle-path { animation: none !important; }
+  }
+
+  /* Top scanline & vignette */
+  .scanlines {
+    position: fixed; inset: 0; pointer-events: none; z-index: 2;
+    background:
+      repeating-linear-gradient(to bottom, transparent 0, transparent 3px, rgba(0,229,255,0.025) 3px, rgba(0,229,255,0.025) 4px),
+      radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.7) 100%);
+    mix-blend-mode: screen;
+  }
+
+  /* ───────────────────────── LAYOUT SHELL ───────────────────────── */
+  .shell { position: relative; z-index: 3; max-width: 1180px; margin: 0 auto; padding: 0 24px 80px; }
+
+  /* ───────────────────────── TOP BAR ────────────────────────────── */
+  header.top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 0 14px; gap: 18px; border-bottom: 1px solid var(--cyan-deep);
+    font-family: 'Orbitron', sans-serif; letter-spacing: 0.18em; font-size: 13px;
+  }
+  header.top .brand { color: var(--cyan); text-shadow: 0 0 8px var(--cyan-dim); font-weight: 800; }
+  header.top .brand .slash { color: var(--orange); }
+  header.top nav { display: flex; gap: 18px; }
+  header.top nav a { color: var(--grey-mid); border: none; text-transform: uppercase; }
+  header.top nav a:hover { color: var(--cyan); text-shadow: 0 0 6px var(--cyan); }
+  header.top .live { display: inline-flex; align-items: center; gap: 8px; color: var(--orange); font-size: 11px; }
+  header.top .live::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 10px var(--orange); animation: pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1);} 50% { opacity: 0.4; transform: scale(0.85);} }
+
+  /* ───────────────────────── HERO ───────────────────────────────── */
+  .hero { padding: 88px 0 64px; position: relative; }
+  .hero .greet { color: var(--cyan); font-family: 'JetBrains Mono', monospace; font-size: 14px; letter-spacing: 0.15em; opacity: 0.85; }
+  .hero h1 {
+    margin: 14px 0 8px; font-family: 'Orbitron', sans-serif;
+    font-weight: 900; font-size: clamp(48px, 8vw, 104px);
+    letter-spacing: 0.04em; line-height: 0.95; color: var(--white);
+    text-shadow:
+      0 0 6px var(--cyan),
+      0 0 22px var(--cyan-dim),
+      0 0 60px var(--cyan-deep);
+  }
+  .hero h1 .slash { color: var(--orange); text-shadow: 0 0 6px var(--orange), 0 0 22px var(--orange-dim); }
+  .hero .tagline { font-family: 'JetBrains Mono', monospace; color: var(--ice); margin: 18px 0 8px; font-size: 16px; letter-spacing: 0.04em; }
+  .hero .tagline span.sep { color: var(--orange); margin: 0 10px; }
+  .hero .motto { margin-top: 28px; font-family: 'Orbitron', sans-serif; font-size: 14px; letter-spacing: 0.32em; color: var(--orange); text-shadow: 0 0 8px var(--orange-dim); }
+  .hero .cta { margin-top: 36px; display: inline-flex; align-items: center; gap: 12px; padding: 14px 24px; border: 1.5px solid var(--cyan); color: var(--cyan); font-family: 'Orbitron', sans-serif; letter-spacing: 0.2em; font-size: 13px; text-transform: uppercase; background: rgba(0, 229, 255, 0.05); transition: all .2s; }
+  .hero .cta:hover { background: var(--cyan); color: var(--bg); box-shadow: 0 0 24px var(--cyan), inset 0 0 16px rgba(0,0,0,0.4); border-color: var(--cyan); }
+  .hero .cta::after { content: "→"; transition: transform .2s; }
+  .hero .cta:hover::after { transform: translateX(4px); }
+
+  /* Light cycle line under hero */
+  .light-cycle { position: relative; height: 4px; margin: 64px 0 8px; overflow: visible; }
+  .light-cycle svg { width: 100%; height: 80px; display: block; overflow: visible; }
+  .light-cycle-path { fill: none; stroke: var(--cyan); stroke-width: 2; stroke-linecap: round; filter: drop-shadow(0 0 6px var(--cyan)) drop-shadow(0 0 12px var(--cyan-dim)); stroke-dasharray: 1600; stroke-dashoffset: 1600; animation: cycleTrail 6s linear infinite; }
+  .light-cycle-dot { fill: var(--orange); filter: drop-shadow(0 0 6px var(--orange)) drop-shadow(0 0 14px var(--orange)); animation: cycleDot 6s linear infinite; }
+  @keyframes cycleTrail { 0% { stroke-dashoffset: 1600; } 60% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -1600; } }
+  @keyframes cycleDot { 0% { transform: translateX(0); } 60% { transform: translateX(0); } 100% { transform: translateX(100vw); } }
+
+  /* ───────────────────────── SECTION LABELS ─────────────────────── */
+  .section { margin: 88px 0 0; position: relative; }
+  .section h2 { font-family: 'Orbitron', sans-serif; font-weight: 800; letter-spacing: 0.18em; font-size: 15px; color: var(--cyan); margin: 0 0 22px; text-transform: uppercase; text-shadow: 0 0 8px var(--cyan-dim); display: inline-flex; align-items: center; gap: 12px; padding: 8px 18px; border: 1px solid var(--cyan-dim); }
+  .section h2::before { content: ">"; color: var(--orange); font-weight: 900; }
+
+  /* ───────────────────────── ID DISC PANEL ──────────────────────── */
+  .id-disc { border: 1.5px solid var(--cyan); padding: 28px 34px; background: linear-gradient(180deg, transparent, rgba(0,229,255,0.02)); position: relative; box-shadow: 0 0 0 1px rgba(0,229,255,0.06), 0 0 30px rgba(0,229,255,0.08); }
+  .id-disc::before { content: "[ ID DISC ]"; position: absolute; top: -10px; left: 24px; background: var(--bg); padding: 0 8px; color: var(--cyan); font-family: 'Orbitron', sans-serif; font-size: 12px; letter-spacing: 0.22em; font-weight: 700; text-shadow: 0 0 6px var(--cyan-dim); }
+  .id-disc .row { display: flex; gap: 16px; margin: 6px 0; font-size: 14px; }
+  .id-disc .k { color: var(--grey); flex-shrink: 0; width: 150px; text-align: right; }
+  .id-disc .v { color: var(--cyan); flex: 1; }
+  .id-disc .v.white { color: var(--white); font-weight: 700; }
+  .id-disc .v.ice { color: var(--ice); }
+  .id-disc .v.orange { color: var(--orange); }
+  .id-disc .v .sep { color: var(--grey-mid); margin: 0 6px; }
+  .id-disc .dot { color: var(--orange); font-size: 18px; vertical-align: middle; animation: pulse 1.8s ease-in-out infinite; display: inline-block; margin-right: 6px; }
+
+  /* ───────────────────────── PROGRAMS GRID ──────────────────────── */
+  .programs { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+  .program { padding: 18px 20px; border: 1px solid var(--cyan-deep); background: rgba(0,229,255,0.025); transition: all .2s; position: relative; }
+  .program:hover { border-color: var(--cyan); background: rgba(0,229,255,0.06); transform: translateY(-2px); box-shadow: 0 0 24px rgba(0,229,255,0.18); }
+  .program h3 { margin: 0 0 8px; font-family: 'Orbitron', sans-serif; font-size: 14px; letter-spacing: 0.12em; color: var(--cyan); text-transform: uppercase; }
+  .program h3 .glyph { color: var(--orange); margin-right: 8px; }
+  .program ul { margin: 0; padding: 0; list-style: none; font-size: 13px; color: var(--ice); }
+  .program li { padding: 4px 0; border-bottom: 1px dashed transparent; }
+  .program li::before { content: "› "; color: var(--orange); opacity: 0.7; }
+
+  /* ───────────────────────── PROJECT CARDS ──────────────────────── */
+  .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+  .project { border: 1px solid var(--cyan-deep); padding: 22px; background: linear-gradient(180deg, rgba(0,229,255,0.02), transparent); transition: all .25s; position: relative; overflow: hidden; }
+  .project::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(120deg, transparent 0%, transparent 40%, rgba(255,107,0,0.0) 50%, transparent 60%); transition: background .6s; }
+  .project:hover { border-color: var(--cyan); box-shadow: 0 0 24px rgba(0,229,255,0.2); }
+  .project:hover::after { background: linear-gradient(120deg, transparent 0%, transparent 30%, rgba(0,229,255,0.08) 50%, transparent 70%); }
+  .project .tag { display: inline-block; font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 0.2em; color: var(--orange); padding: 3px 8px; border: 1px solid var(--orange-dim); margin-bottom: 12px; text-transform: uppercase; }
+  .project h3 { margin: 4px 0 10px; font-family: 'Orbitron', sans-serif; font-size: 18px; color: var(--white); letter-spacing: 0.04em; }
+  .project p { margin: 0 0 14px; font-size: 13.5px; color: var(--ice); }
+  .project .meta { color: var(--grey-mid); font-size: 11px; letter-spacing: 0.1em; }
+  .project .meta strong { color: var(--cyan); }
+  .project a.go { display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; color: var(--cyan); font-family: 'Orbitron', sans-serif; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; border: none; }
+  .project a.go::after { content: "→"; transition: transform .15s; }
+  .project a.go:hover::after { transform: translateX(4px); }
+
+  /* ───────────────────────── I/O TOWER ──────────────────────────── */
+  .io-tower { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-top: 12px; }
+  .io-link { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border: 1px solid var(--cyan-deep); background: rgba(0,229,255,0.025); font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cyan); transition: all .2s; border-bottom: 1px solid var(--cyan-deep); }
+  .io-link:hover { border-color: var(--orange); color: var(--orange); text-shadow: 0 0 8px var(--orange-dim); background: rgba(255,107,0,0.04); }
+  .io-link .arrow { color: var(--orange); transition: transform .15s; }
+  .io-link:hover .arrow { transform: translateX(4px); }
+
+  /* ───────────────────────── FOOTER ─────────────────────────────── */
+  footer.bottom { margin-top: 92px; padding: 30px 0; border-top: 1px solid var(--cyan-deep); display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--grey); letter-spacing: 0.12em; }
+  footer.bottom .eol { color: var(--orange); font-family: 'Orbitron', sans-serif; letter-spacing: 0.32em; font-weight: 700; text-shadow: 0 0 6px var(--orange-dim); }
+
+  /* ───────────────────────── BOOT OVERLAY ───────────────────────── */
+  #boot { position: fixed; inset: 0; z-index: 100; background: var(--bg); display: flex; align-items: center; justify-content: center; transition: opacity .6s, visibility .6s; }
+  #boot.gone { opacity: 0; visibility: hidden; }
+  #boot pre { color: var(--cyan); font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.5; text-shadow: 0 0 6px var(--cyan-dim); }
+  #boot .cursor::after { content: "▮"; animation: blink 1s steps(2,end) infinite; color: var(--cyan); }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* ───────────────────────── MOBILE ─────────────────────────────── */
+  @media (max-width: 700px) {
+    header.top nav { display: none; }
+    .shell { padding: 0 16px 60px; }
+    .id-disc .row { flex-direction: column; gap: 0; }
+    .id-disc .k { text-align: left; width: auto; }
+    .hero { padding: 60px 0 40px; }
+    .hero h1 { font-size: 48px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─────────────── BOOT SEQUENCE ─────────────── -->
+<div id="boot">
+  <pre id="boot-text"></pre>
+</div>
+
+<!-- ─────────────── TRON GRID FLOOR ─────────────── -->
+<div class="grid-floor" aria-hidden="true"></div>
+<div class="scanlines" aria-hidden="true"></div>
+
+<div class="shell">
+
+  <!-- ─────────────── TOP BAR ─────────────── -->
+  <header class="top">
+    <div class="brand">MHARM<span class="slash">/</span>MSFT</div>
+    <nav>
+      <a href="#id-disc">ID</a>
+      <a href="#programs">PROGRAMS</a>
+      <a href="#projects">PROJECTS</a>
+      <a href="#io-tower">I/O TOWER</a>
+    </nav>
+    <span class="live">ON THE GRID</span>
+  </header>
+
+  <!-- ─────────────── HERO ─────────────── -->
+  <section class="hero">
+    <div class="greet">&gt; GREETINGS, PROGRAM.</div>
+    <h1>MHARM<span class="slash">/</span>MSFT</h1>
+    <div class="tagline">
+      <span>zero-trust azure</span><span class="sep">//</span>
+      <span>generative AI</span><span class="sep">//</span>
+      <span>agentic developer tooling</span>
+    </div>
+    <div class="motto">// I FIGHT FOR THE USERS.</div>
+    <a class="cta" href="https://github.com/mharm-msft" target="_blank" rel="noopener">ENTER THE GRID</a>
+
+    <div class="light-cycle" aria-hidden="true">
+      <svg viewBox="0 0 1600 80" preserveAspectRatio="none">
+        <path class="light-cycle-path" d="M0 60 L 420 60 L 460 20 L 980 20 L 1020 60 L 1600 60" />
+        <circle class="light-cycle-dot" cx="0" cy="60" r="5" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- ─────────────── ID DISC ─────────────── -->
+  <section class="section" id="id-disc">
+    <h2>ID DISC</h2>
+    <div class="id-disc">
+      <div class="row"><div class="k">user........:</div>      <div class="v white">Michael Harmon</div></div>
+      <div class="row"><div class="k">handle......:</div>      <div class="v">@mharm-msft</div></div>
+      <div class="row"><div class="k">affiliation.:</div>      <div class="v">Microsoft <span class="sep">//</span> US Enterprise Commercial</div></div>
+      <div class="row"><div class="k">program.....:</div>      <div class="v">Cloud Solution Architect</div></div>
+      <div class="row"><div class="k">mission.....:</div>      <div class="v ice">zero-trust azure landing zones</div></div>
+      <div class="row"><div class="k"></div>                    <div class="v ice">generative AI workload integration</div></div>
+      <div class="row"><div class="k"></div>                    <div class="v ice">agentic developer tooling (MCP, autopilots)</div></div>
+      <div class="row"><div class="k">allegiance..:</div>      <div class="v">USER-side <span class="sep">//</span> <span class="orange">I fight for the Users.</span></div></div>
+      <div class="row"><div class="k">status......:</div>      <div class="v"><span class="dot">●</span><span>ON THE GRID</span></div></div>
+    </div>
+  </section>
+
+  <!-- ─────────────── PROGRAMS / TECH STACK ─────────────── -->
+  <section class="section" id="programs">
+    <h2>SCAN [ PROGRAMS ]</h2>
+    <div class="programs">
+      <div class="program">
+        <h3><span class="glyph">☁</span>CLOUD</h3>
+        <ul>
+          <li>Azure</li><li>Microsoft 365</li><li>Entra ID</li>
+          <li>Sentinel</li><li>Defender</li>
+        </ul>
+      </div>
+      <div class="program">
+        <h3><span class="glyph">🧱</span>IaC</h3>
+        <ul>
+          <li>Terraform</li><li>Bicep</li><li>ARM Templates</li>
+          <li>GitHub Actions</li><li>Azure DevOps</li>
+        </ul>
+      </div>
+      <div class="program">
+        <h3><span class="glyph">⌨</span>CODE</h3>
+        <ul>
+          <li>PowerShell</li><li>Python</li><li>TypeScript</li>
+          <li>Bash</li><li>Markdown</li>
+        </ul>
+      </div>
+      <div class="program">
+        <h3><span class="glyph">🧠</span>AI</h3>
+        <ul>
+          <li>Azure OpenAI</li><li>AI Foundry</li><li>Anthropic / Claude</li>
+          <li>Model Context Protocol</li><li>LangChain</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────── ACTIVE PROGRAMS / PROJECTS ─────────────── -->
+  <section class="section" id="projects">
+    <h2>ACTIVE PROGRAMS</h2>
+    <div class="projects">
+
+      <div class="project">
+        <span class="tag">Public // Terraform</span>
+        <h3>Ascend-Scaffolding</h3>
+        <p>Opinionated Azure Virtual Network Manager (AVNM) proof-of-concept &mdash; the connectivity backbone for regulated-industry landing zones.</p>
+        <div class="meta">LANG <strong>HCL</strong> <span class="sep">·</span> ZONE <strong>connectivity</strong></div>
+        <a class="go" href="https://github.com/mharm-msft/Ascend-Scaffolding" target="_blank" rel="noopener">RECTIFY</a>
+      </div>
+
+      <div class="project">
+        <span class="tag">Private // Python / TS</span>
+        <h3>Clawpilot</h3>
+        <p>Desktop AI agent for Cloud Solution Architects. MCP-first, multi-skill, Microsoft-365-aware. Where the rest of these programs run.</p>
+        <div class="meta">RUNTIME <strong>Electron + LLM</strong> <span class="sep">·</span> PROTOCOL <strong>MCP</strong></div>
+      </div>
+
+      <div class="project">
+        <span class="tag">Private // Skills Suite</span>
+        <h3>MSX Skill Suite</h3>
+        <p><span style="color:var(--cyan)">/onepager</span> &middot; <span style="color:var(--cyan)">/msx-hygiene</span> &middot; <span style="color:var(--cyan)">/tea-leaves</span> &middot; <span style="color:var(--cyan)">/prep</span> &middot; <span style="color:var(--cyan)">/profile-update</span> &mdash; agentic tooling for sales-ops hygiene and executive briefs.</p>
+        <div class="meta">CONSUMES <strong>MSX Dataverse</strong> <span class="sep">·</span> RUNS IN <strong>Clawpilot</strong></div>
+      </div>
+
+      <div class="project">
+        <span class="tag">Public // Profile</span>
+        <h3>mharm-msft/mharm-msft</h3>
+        <p>The Tron-themed profile README you may have arrived from. Hand-rolled SVG terminal panels, light-cycle contribution snake, full source committed.</p>
+        <div class="meta">RENDER <strong>SVG + GH Actions</strong> <span class="sep">·</span> SOURCE <strong>public</strong></div>
+        <a class="go" href="https://github.com/mharm-msft/mharm-msft" target="_blank" rel="noopener">RECTIFY</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─────────────── I/O TOWER ─────────────── -->
+  <section class="section" id="io-tower">
+    <h2>I/O TOWER</h2>
+    <div class="io-tower">
+      <a class="io-link" href="https://github.com/mharm-msft" target="_blank" rel="noopener"><span>GITHUB</span><span class="arrow">→</span></a>
+      <a class="io-link" href="https://www.linkedin.com/search/results/people/?keywords=Michael%20Harmon%20Microsoft%20Cloud%20Solution%20Architect" target="_blank" rel="noopener"><span>LINKEDIN</span><span class="arrow">→</span></a>
+      <a class="io-link" href="https://www.microsoft.com" target="_blank" rel="noopener"><span>MICROSOFT</span><span class="arrow">→</span></a>
+    </div>
+  </section>
+
+  <!-- ─────────────── FOOTER ─────────────── -->
+  <footer class="bottom">
+    <div><span style="color:var(--cyan)">grid uplink stable</span> <span style="color:var(--grey-mid)">//</span> compiled 2026-06-04 <span style="color:var(--grey-mid)">//</span> mharm-msft.github.io</div>
+    <div class="eol">END OF LINE</div>
+  </footer>
+
+</div>
+
+<script>
+  // Boot sequence — pure Tron diagnostic prelude
+  (function(){
+    const lines = [
+      "[ MCP ]   handshake ............................ OK",
+      "[ KEY ]   id disc authenticated ................ OK",
+      "[ NET ]   resolving game-grid.local ............ 100%",
+      "[ SEC ]   zero-trust posture .................. SEALED",
+      "[ I/O ]   tower uplink .......................... 100%",
+      "[ SYS ]   greetings, program."
+    ];
+    const target = document.getElementById('boot-text');
+    let i = 0, j = 0, buf = "";
+    function tick() {
+      if (i >= lines.length) {
+        target.innerHTML = buf + '<span class="cursor"></span>';
+        setTimeout(() => {
+          document.getElementById('boot').classList.add('gone');
+          setTimeout(() => document.getElementById('boot').remove(), 700);
+        }, 350);
+        return;
+      }
+      buf += lines[i][j] || "";
+      target.textContent = buf;
+      j++;
+      if (j > lines[i].length) {
+        buf += "\n";
+        i++; j = 0;
+        setTimeout(tick, 90);
+      } else {
+        setTimeout(tick, 8);
+      }
+    }
+    // respect reduced motion: skip animation
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      target.textContent = lines.join('\n');
+      setTimeout(() => document.getElementById('boot').classList.add('gone'), 200);
+      setTimeout(() => document.getElementById('boot').remove(), 800);
+    } else {
+      tick();
+    }
+  })();
+</script>
+
+</body>
+</html>
