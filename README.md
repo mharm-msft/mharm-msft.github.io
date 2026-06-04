@@ -1,32 +1,28 @@
-# mharm-msft.github.io
+# // mharm-msft.github.io //
 
-Tron-themed personal landing site for [@mharm-msft](https://github.com/mharm-msft).
+// landing page // mharm-msft on the grid //
 
-🌐 Live at https://mharm-msft.github.io
+live url: https://mharm-msft.github.io
 
-## Stack
+## // tech //
 
-- Single self-contained `index.html` (~24 KB)
-- Pure CSS animations (perspective grid floor, light-cycle trail, glow pulses)
-- Google Fonts: Orbitron + JetBrains Mono
-- No build step, no dependencies, no tracking
+- vanilla html
+- vanilla css
+- vanilla javascript
+- static github pages deployment
 
-## Deployment
+## // local preview //
 
-GitHub Pages serves `main` automatically (this is the special `<username>.github.io` user-pages repo).
-
-```
-git push origin main   # → live within ~30s
-```
-
-## Palette
-
-```
---bg     #000000  (the Grid)
---cyan   #00E5FF  (programs / User side)
---ice    #7DF9FF  (highlights)
---orange #FF6B00  (Clu / accent)
---white  #FFFFFF  (glow core)
+```bash
+cd <repository-root>
+python3 -m http.server 8080
+# open http://localhost:8080
 ```
 
-// I fight for the Users.
+## // contributing //
+
+contributions are welcome. please read [`CONTRIBUTING.md`](./CONTRIBUTING.md) before opening changes.
+
+## // license //
+
+released under the mit license. see [`LICENSE`](./LICENSE).

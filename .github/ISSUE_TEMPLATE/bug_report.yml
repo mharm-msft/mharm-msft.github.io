@@ -1,0 +1,39 @@
+name: bug report
+description: report something broken
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        // thanks for helping improve the grid //
+  - type: textarea
+    id: summary
+    attributes:
+      label: summary
+      description: what happened?
+      placeholder: describe the bug
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: steps to reproduce
+      placeholder: |
+        1. go to ...
+        2. click ...
+        3. see error ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: expected behavior
+      placeholder: what should have happened?
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: browser
+      placeholder: e.g. edge 136, chrome 126, safari 17
