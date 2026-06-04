@@ -14,3 +14,13 @@ thanks for helping improve this landing page.
 - describe what changed and why
 - include screenshots for visual changes
 - ensure workflows pass before requesting review
+
+## // palette //
+
+to preserve the existing visual tone, prefer the established color system:
+
+- `#000000`
+- `#00E5FF`
+- `#7DF9FF`
+- `#FF6B00`
+- `#FFFFFF`
