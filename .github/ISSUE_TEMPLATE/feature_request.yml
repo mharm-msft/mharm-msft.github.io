@@ -1,0 +1,28 @@
+name: feature request
+description: suggest an enhancement
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        // ideas welcome // keep it clean // keep it fast //
+  - type: textarea
+    id: problem
+    attributes:
+      label: problem to solve
+      description: what need does this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: proposed change
+      description: what should be added or improved?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: alternatives considered
+      description: any other approaches?

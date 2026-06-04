@@ -1,0 +1,36 @@
+name: lighthouse
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ github.event_name == 'pull_request' }}
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: start local static server
+        run: |
+          python3 -m http.server 8080 --directory . &
+          echo $! > server.pid
+
+      - name: run lighthouse
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: |
+            http://127.0.0.1:8080/
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
+      - name: stop local static server
+        if: always()
+        run: |
+          if [ -f server.pid ]; then
+            kill "$(cat server.pid)" || true
+          fi
