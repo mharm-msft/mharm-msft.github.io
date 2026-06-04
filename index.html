@@ -46,12 +46,12 @@
 
   /* ───────────────────────── TRON GRID FLOOR ────────────────────── */
   .grid-floor {
-    position: fixed; inset: 50% 0 0 0; pointer-events: none; z-index: 0;
+    position: fixed; top: 50%; right: 0; bottom: 0; left: 0; pointer-events: none; z-index: 0;
     perspective: 460px; perspective-origin: 50% 0;
     overflow: hidden;
   }
   .grid-floor::before {
-    content: ""; position: absolute; inset: 0 -50% -50% -50%;
+    content: ""; position: absolute; top: 0; right: -50%; bottom: -50%; left: -50%;
     background:
       linear-gradient(to right, var(--grid-line) 1px, transparent 1px) 0 0 / 56px 100%,
       linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px) 0 0 / 100% 56px;
@@ -61,7 +61,7 @@
     background-position: 0 0, 0 0;
   }
   .grid-floor::after {
-    content: ""; position: absolute; inset: 0;
+    content: ""; position: absolute; top: 0; right: 0; bottom: 0; left: 0;
     background: linear-gradient(to bottom, var(--bg) 0%, transparent 18%, transparent 72%, var(--bg) 100%);
   }
   @keyframes gridScroll {
@@ -75,7 +75,7 @@
 
   /* Top scanline & vignette */
   .scanlines {
-    position: fixed; inset: 0; pointer-events: none; z-index: 2;
+    position: fixed; top: 0; right: 0; bottom: 0; left: 0; pointer-events: none; z-index: 2;
     background:
       repeating-linear-gradient(to bottom, transparent 0, transparent 3px, rgba(0,229,255,0.025) 3px, rgba(0,229,255,0.025) 4px),
       radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.7) 100%);
@@ -159,7 +159,7 @@
   /* ───────────────────────── PROJECT CARDS ──────────────────────── */
   .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
   .project { border: 1px solid var(--cyan-deep); padding: 22px; background: linear-gradient(180deg, rgba(0,229,255,0.02), transparent); transition: all .25s; position: relative; overflow: hidden; }
-  .project::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(120deg, transparent 0%, transparent 40%, rgba(255,107,0,0.0) 50%, transparent 60%); transition: background .6s; }
+  .project::after { content: ""; position: absolute; top: 0; right: 0; bottom: 0; left: 0; pointer-events: none; background: linear-gradient(120deg, transparent 0%, transparent 40%, rgba(255,107,0,0.0) 50%, transparent 60%); transition: background .6s; }
   .project:hover { border-color: var(--cyan); box-shadow: 0 0 24px rgba(0,229,255,0.2); }
   .project:hover::after { background: linear-gradient(120deg, transparent 0%, transparent 30%, rgba(0,229,255,0.08) 50%, transparent 70%); }
   .project .tag { display: inline-block; font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 0.2em; color: var(--orange); padding: 3px 8px; border: 1px solid var(--orange-dim); margin-bottom: 12px; text-transform: uppercase; }
@@ -183,7 +183,7 @@
   footer.bottom .eol { color: var(--orange); font-family: 'Orbitron', sans-serif; letter-spacing: 0.32em; font-weight: 700; text-shadow: 0 0 6px var(--orange-dim); }
 
   /* ───────────────────────── BOOT OVERLAY ───────────────────────── */
-  #boot { position: fixed; inset: 0; z-index: 100; background: var(--bg); display: flex; align-items: center; justify-content: center; transition: opacity .6s, visibility .6s; }
+  #boot { position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 100; background: var(--bg); display: flex; align-items: center; justify-content: center; transition: opacity .6s, visibility .6s; }
   #boot.gone { opacity: 0; visibility: hidden; }
   #boot pre { color: var(--cyan); font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.5; text-shadow: 0 0 6px var(--cyan-dim); }
   #boot .cursor::after { content: "▮"; animation: blink 1s steps(2,end) infinite; color: var(--cyan); }
