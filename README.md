@@ -14,7 +14,7 @@ live url: https://mharm-msft.github.io
 ## // local preview //
 
 ```bash
-cd /tmp/workspace/mharm-msft/mharm-msft.github.io
+cd <repository-root>
 python3 -m http.server 8080
 # open http://localhost:8080
 ```
